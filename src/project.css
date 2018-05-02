@@ -1,0 +1,9 @@
+.project {
+  display: flex;
+  justify-content: flex-start;
+  text-align: left; }
+  .project .header {
+    text-decoration: none;
+    color: #5DC0EC !important; }
+  .project .meta, .project .description {
+    padding-left: .5em; }

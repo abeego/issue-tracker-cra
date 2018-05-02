@@ -1,0 +1,38 @@
+.login-user-input {
+  padding-top: 2em;
+  min-width: 300px;
+  max-width: 700px; }
+
+.project {
+  display: flex;
+  justify-content: flex-start;
+  text-align: left; }
+  .project .header {
+    text-decoration: none;
+    color: #5DC0EC !important; }
+  .project .meta, .project .description {
+    padding-left: .5em; }
+
+body {
+  background-color: #e6e6e6;
+  font-family: "Roboto", sans-serif;
+  color: #3d3d3d;
+  text-align: center; }
+  body a {
+    color: #5DC0EC;
+    padding: .5em;
+    cursor: pointer; }
+    body a:hover {
+      background-color: rgba(0, 0, 0, 0.05); }
+  body #app {
+    width: 100%;
+    display: flex;
+    justify-content: space-around;
+    margin-top: 5em; }
+  body .projects {
+    display: block; }
+  body .ui.loader:after {
+    border-color: #5DC0EC transparent transparent; }
+
+[class*='ui'] {
+  font-family: "Roboto", sans-serif !important; }
