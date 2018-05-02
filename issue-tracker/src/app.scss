@@ -1,0 +1,45 @@
+$grey: #e6e6e6;
+$blue: #5DC0EC;
+$red: #e9253a;
+$green: #66ef54;
+$black: #3d3d3d;
+
+$roboto: 'Roboto', sans-serif;
+
+@import 'login-user-input.scss';
+@import 'project.scss';
+
+body {
+  background-color: $grey;
+  font-family: $roboto;
+  color: $black;
+  text-align: center;
+
+  a {
+    color: $blue;
+    padding: .5em;
+    cursor: pointer;
+    &:hover {
+      background-color: rgba(0,0,0,0.05);
+    }
+  }
+
+  #app {
+    width: 100%;
+    display: flex;
+    justify-content: space-around;
+    margin-top: 5em;
+  }
+
+  .projects {
+    display: block;
+  }
+
+  .ui.loader:after {
+    border-color: $blue transparent transparent;
+  }
+}
+
+[class*='ui'] {
+  font-family: $roboto !important;
+}
