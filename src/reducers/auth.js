@@ -1,15 +1,24 @@
 import jwtDecode from 'jwt-decode';
 import * as auth from '../actions/auth';
 
-const initialState = {
-  access: undefined, // TODO: check if ou have tokens in the local storage
-  refresh: undefined,
-  errors: {},
-};
+const initialState = (localStorage.getItem('access') && localStorage.getItem('refresh'))
+  ? {
+    access: {
+      token: localStorage.getItem('access'),
+      ...jwtDecode(localStorage.getItem('access')),
+    },
+    refresh: {
+      token: localStorage.getItem('refresh'),
+      ...jwtDecode(localStorage.getItem('refresh')),
+    },
+  }
+  : {
+    access: {},
+    refresh: {},
+  };
+
 
 export default (state = initialState, action) => {
-  // console.log(action);
-  // TODO: save received tokens to local storage
   switch (action.type) {
     case auth.SUCCESS:
       return {
@@ -18,6 +27,8 @@ export default (state = initialState, action) => {
         newUser: action.payload.message[0],
       };
     case auth.LOGIN_SUCCESS:
+      localStorage.setItem('access', action.payload.access);
+      localStorage.setItem('refresh', action.payload.refresh);
       return {
         access: {
           token: action.payload.access,
@@ -56,14 +67,14 @@ export default (state = initialState, action) => {
 };
 
 export function accessToken(state) {
-  if (state.access) {
-    return state.access.token;
+  if (state.auth.access) {
+    return state.access;
   }
 }
 
 export function refreshToken(state) {
-  if (state.refresh) {
-    return state.refresh.token;
+  if (state.auth.refresh) {
+    return state.refresh;
   }
 }
 

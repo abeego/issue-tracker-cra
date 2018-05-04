@@ -6,7 +6,7 @@ export const PROJECTS_REQUEST_FAILURE = '@@projects/PROJECTS_REQUEST_FAILURE';
 
 export const getProjectsList = token => ({
   [RSAA]: {
-    endpoint: '/projects/',
+    endpoint: '/api/projects/',
     method: 'GET',
     headers: {
       'Content-Type': 'aplication/json',
@@ -17,3 +17,14 @@ export const getProjectsList = token => ({
     ],
   },
 });
+
+export const fetchProject = (id, token) => ({
+  [RSAA]: {
+    endpoint: `./api/project/${id}`,
+    method: 'GET',
+    headers: {
+      'Content-Type': 'aplication/json',
+      'Authorization': `Bearer ${token}`
+    }
+  }
+})

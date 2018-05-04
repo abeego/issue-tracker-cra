@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Link } from 'react-router';
+import { Link } from 'react-router-dom';
 import { Segment, Form, Header, Message } from 'semantic-ui-react';
 import PropTypes from 'prop-types';
 
@@ -65,6 +65,7 @@ export default class LoginUserInput extends Component {
           />
         )}
         <Header size="small">Don&#039;t have an account yet?</Header>
+        <Link to="/register">Register</Link>
       </Segment>
     );
   }

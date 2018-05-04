@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Link } from 'react-router';
+import { Link } from 'react-router-dom';
 import { Segment, Form, Header, Message } from 'semantic-ui-react';
 import PropTypes from 'prop-types';
 
@@ -118,6 +118,7 @@ export default class RegisterUserInput extends Component {
           />
         )}
         <Header size="small">Already registered?</Header>
+        <Link to="/login">Login</Link>
       </Segment>
     );
   }

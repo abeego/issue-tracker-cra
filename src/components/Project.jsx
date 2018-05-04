@@ -1,31 +1,36 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { Item } from 'semantic-ui-react';
+import { Link } from 'react-router-dom';
 
-import ProjectPicture from '../../images/project.png';
+import ProjectPicture from '../images/project.png';
 
-import '../scss/project.scss';
+import '../project.scss';
 
-const Project = props => (
+const Project = ({
+  project: {
+    id, name, description, created_at,
+  }
+}) => (
   <Item.Group className="project">
     <Item>
       <Item.Image size="small" src={ProjectPicture} />
       <Item.Content>
-        <Item.Header as="a">{props.project.name}</Item.Header>
+        <Item.Header><Link to={`/project/${id}`}>{name}</Link></Item.Header>
         <Item.Meta>Description:</Item.Meta>
-        <Item.Description>{props.project.description}</Item.Description>
+        <Item.Description>{description}</Item.Description>
         <Item.Meta>Created:</Item.Meta>
-        <Item.Description>{props.project.created_at}</Item.Description>
+        <Item.Description>{created_at}</Item.Description>
       </Item.Content>
     </Item>
-  </Item.Group>
-);
+</Item.Group>);
 
 Project.propTypes = {
   project: PropTypes.shape({
     name: PropTypes.string,
     description: PropTypes.string,
     created_at: PropTypes.string,
+    id: PropTypes.number, 
   }),
 };
 

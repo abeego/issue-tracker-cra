@@ -8,11 +8,11 @@ import { getProjectsList } from '../actions/projects';
 import Project from '../components/Project';
 
 class ProjectsList extends Component {
-  componentDidMount = () => {
+  componentDidMount() {
     this.props.getProjectsList(this.props.token);
   }
 
-  componentWillReceiveProps = (newProps) => {
+  componentWillReceiveProps(newProps) {
     console.log('newPros', newProps)
   }
 

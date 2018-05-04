@@ -24,7 +24,7 @@ body {
     cursor: pointer; }
     body a:hover {
       background-color: rgba(0, 0, 0, 0.05); }
-  body #app {
+  body #root {
     width: 100%;
     display: flex;
     justify-content: space-around;
