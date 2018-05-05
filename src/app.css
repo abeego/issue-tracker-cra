@@ -13,6 +13,16 @@
   .project .meta, .project .description {
     padding-left: .5em; }
 
+.project-extended {
+  width: 100%; }
+  .project-extended .issues {
+    margin: 2em;
+    border: 2px solid #3d3d3d;
+    display: flex;
+    flex-direction: column; }
+    .project-extended .issues .ui.card.issue {
+      width: 25%; }
+
 body {
   background-color: #e6e6e6;
   font-family: "Roboto", sans-serif;

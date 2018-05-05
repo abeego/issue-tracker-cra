@@ -1,5 +1,3 @@
-$blue: #5DC0EC;
-
 .project {
   display: flex;
   justify-content: flex-start;
@@ -10,5 +8,18 @@ $blue: #5DC0EC;
   }
   .meta, .description {
     padding-left: .5em;
+  }
+}
+
+.project-extended {
+  width: 100%;
+  .issues {
+    margin: 2em;
+    border:2px solid $black;
+    display: flex;
+    flex-direction: column;
+    .ui.card.issue {
+      width: 25%;
+    }
   }
 }

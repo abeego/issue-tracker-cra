@@ -1,15 +1,14 @@
-fix that private route and routing!!!! 
 
-create private route 
-
-refreshToken
+refresh
 
 Log out button
 
 Projects:
 - button to create new
+- edit existing 
 
-- figure out how to make /projects route = probably add more private routes
+Issue: 
+- edit
+- comment
 
-Project:
-- link header
+Do the tests
