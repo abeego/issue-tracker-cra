@@ -1,11 +1,5 @@
-$grey: #e6e6e6;
-$blue: #5DC0EC;
-$red: #e9253a;
-$green: #66ef54;
-$black: #3d3d3d;
 
-$roboto: 'Roboto', sans-serif;
-
+@import 'sass-variables.scss';
 @import 'login-user-input.scss';
 @import 'project.scss';
 

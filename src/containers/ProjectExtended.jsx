@@ -15,8 +15,32 @@ class ProjectExtended extends Component {
   componentWillMount() {
     const {match: {params: {id}}} = this.props;
     if (id) this.props.fetchProject(id, this.props.token);
-		
-  }
+	}
+
+	groupBy = (items, key) => {
+		return	items.reduce(
+			(result, item) => ({
+				...result,
+				[item[key]]: [
+					...(result[item[key]] || []),
+					item,
+				],
+			}), 
+			{},
+		)
+	}
+	
+	sortIssues = (issues) => {
+		const sortedIssues = this.groupBy(issues, 'status');
+		return Object.keys(sortedIssues)
+			.map(key => (
+			<div className="issues-column" key={key}>
+				{ sortedIssues[key].map( issue =>	(
+					<Issue key={issue.name} issue={issue} />)
+				)}
+			</div>));
+	};
+	
   render() {
     return (
 			<div className="project-extended">
@@ -31,9 +55,7 @@ class ProjectExtended extends Component {
 							</React.Fragment>
 						</Header>
 						<div className="issues">
-							{this.props.selectedProject.issues.map(issue => (
-								<Issue key={issue.name} issue={issue} />
-							))}
+							{this.sortIssues(this.props.selectedProject.issues)} 
 						</div>
 					</React.Fragment>
 				)}

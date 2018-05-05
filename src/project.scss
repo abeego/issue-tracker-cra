@@ -1,3 +1,4 @@
+@import 'sass-variables.scss';
 .project {
   display: flex;
   justify-content: flex-start;
@@ -14,12 +15,15 @@
 .project-extended {
   width: 100%;
   .issues {
+    display: flex;
     margin: 2em;
     border:2px solid $black;
-    display: flex;
-    flex-direction: column;
+    .issues-column {
+      display: inline-block;
+      width: 25%
+    }
     .ui.card.issue {
-      width: 25%;
+      // width: 25%;
     }
   }
 }
