@@ -2,3 +2,11 @@
   padding-top: 2em;
   min-width: 300px;
   max-width: 700px; }
+  .login-user-input .ui.button {
+    font-family: 'roboto';
+    background-color: #5DC0EC; }
+  .login-user-input .ui.success.message {
+    color: #66ef54;
+    box-shadow: 0 0 0 1px #66ef54 inset, 0 0 0 0 transparent; }
+  .login-user-input .ui.error.message {
+    color: #e9253a; }

@@ -3,11 +3,16 @@
 @import 'login-user-input.scss';
 @import 'project.scss';
 
+html {
+  min-width: 900px;
+}
+
 body {
   background-color: $grey;
   font-family: $roboto;
   color: $black;
   text-align: center;
+  overflow-x: visible;
 
   a {
     color: $blue;

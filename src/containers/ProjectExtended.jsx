@@ -32,9 +32,11 @@ class ProjectExtended extends Component {
 	
 	sortIssues = (issues) => {
 		const sortedIssues = this.groupBy(issues, 'status');
-		return Object.keys(sortedIssues)
-			.map(key => (
+		console.log(sortedIssues);
+		const order = ['Planed', 'In Progress', 'Verified', 'Done'];
+		return order.map(key => (
 			<div className="issues-column" key={key}>
+				<h3 className="issues-column-header">{key}</h3>
 				{ sortedIssues[key].map( issue =>	(
 					<Issue key={issue.name} issue={issue} />)
 				)}

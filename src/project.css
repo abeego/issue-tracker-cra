@@ -9,11 +9,22 @@
     padding-left: .5em; }
 
 .project-extended {
-  width: 100%; }
+  width: 100%;
+  min-width: 900px;
+  height: 100%;
+  overflow-x: scroll; }
   .project-extended .issues {
     display: flex;
+    justify-content: space-evenly;
     margin: 2em;
+    padding-bottom: 1em;
     border: 2px solid #3d3d3d; }
     .project-extended .issues .issues-column {
       display: inline-block;
-      width: 25%; }
+      width: 24%; }
+      .project-extended .issues .issues-column .issues-column-header {
+        margin-top: 1em; }
+      .project-extended .issues .issues-column .ui.card.issue {
+        width: 98.5%;
+        padding: 1em;
+        text-align: left; }
