@@ -15,13 +15,14 @@ const Issue = ({ issue: { name, description, created_at: createdAt, status } }) 
 );
 
 const getColor = (status) => {
-	switch(status) {
-		case 'Planed': return '#e9253a';
-		case 'In Progress': return '#5DC0EC';
-		case 'Verified': return '#3d3d3d';
-		case 'Done': return '#66ef54';
+	switch (status) {
+	case 'Planed': return '#e9253a';
+	case 'In Progress': return '#5DC0EC';
+	case 'Verified': return '#3d3d3d';
+	case 'Done': return '#66ef54';
+	default: break;
 	}
-}
+};
 
 Issue.propTypes = {
 	issue: PropTypes.shape({

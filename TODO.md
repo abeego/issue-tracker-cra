@@ -12,11 +12,6 @@ Projects:
 - edit existing 
 
 
-Issues: 
-- header 
-- order columns
-
-
 Issue Card: 
 - show some color for status
 - edit
@@ -25,6 +20,8 @@ Issue Card:
 Issue page
 - display comments
 - add new comment
+- upload a file
+
 
 
 Do the tests

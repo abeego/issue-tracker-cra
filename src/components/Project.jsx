@@ -5,7 +5,7 @@ import { Link } from 'react-router-dom';
 
 import ProjectPicture from '../images/project.png';
 
-import '../project.scss';
+import '../styles/project.scss';
 
 const Project = ({
   project: {

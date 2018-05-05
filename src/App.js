@@ -1,11 +1,11 @@
-import { BrowserRouter as Router, Route, Redirect, Switch } from 'react-router-dom';
+import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import React from 'react';
 import { apiMiddleware } from 'redux-api-middleware';
 import { Provider } from 'react-redux';
 import { createStore, applyMiddleware } from 'redux';
 
 import 'semantic-ui-css/semantic.min.css';
-import './app.css';
+import './styles/app.css';
 
 import rootReducer from './reducers';
 

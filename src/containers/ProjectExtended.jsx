@@ -10,14 +10,13 @@ import Issue from '../components/Issue';
 
 import { fetchProject } from '../actions/projects';
 
-// TODO get rid of item, display issues, do proptypes
 class ProjectExtended extends Component {
-  componentWillMount() {
-    const {match: {params: {id}}} = this.props;
-    if (id) this.props.fetchProject(id, this.props.token);
+	componentWillMount() {
+		const { match: { params: { id } } } = this.props;
+		if (id) this.props.fetchProject(id, this.props.token);
 	}
 
-	groupBy = (items, key) => {
+	groupBy(items, key) {
 		return	items.reduce(
 			(result, item) => ({
 				...result,
@@ -29,22 +28,21 @@ class ProjectExtended extends Component {
 			{},
 		)
 	}
-	
-	sortIssues = (issues) => {
+
+	sortIssues(issues) {
 		const sortedIssues = this.groupBy(issues, 'status');
-		console.log(sortedIssues);
 		const order = ['Planed', 'In Progress', 'Verified', 'Done'];
 		return order.map(key => (
 			<div className="issues-column" key={key}>
 				<h3 className="issues-column-header">{key}</h3>
-				{ sortedIssues[key].map( issue =>	(
-					<Issue key={issue.name} issue={issue} />)
-				)}
+				{ sortedIssues[key].map(issue =>	(
+					<Issue key={issue.name} issue={issue} />
+				))}
 			</div>));
-	};
-	
-  render() {
-    return (
+	}
+
+	render() {
+		return (
 			<div className="project-extended">
 				<Link href="/projects" to="/projects">Go back to Projects Page</Link>
 				<Loader active={!this.props.selectedProject} content="Fetching project" />
@@ -62,29 +60,34 @@ class ProjectExtended extends Component {
 					</React.Fragment>
 				)}
 			</div>
-    );
-  }
+		);
+	}
 }
 
 ProjectExtended.propTypes = {
 	fetchProject: PropTypes.func,
-  selectedProject: PropTypes.shape({
-    name: PropTypes.string,
-    issues: PropTypes.array,
-  }),
-}
-
-const mapStateToProps = (state) => {
-  console.log('state', state);
-  return {
-    selectedProject: state.projects.selectedProject, 
-		token: (state.auth && state.auth.access && state.auth.access.token) ? state.auth.access.token : null,
-  }
+	token: PropTypes.string,
+	match: PropTypes.shape({
+		params: PropTypes.shape({
+			id: PropTypes.number,
+		}),
+	}),
+	selectedProject: PropTypes.shape({
+		name: PropTypes.string,
+		issues: PropTypes.array,
+	}),
 };
 
-const mapDispatchToProps = (dispatch) => {
-  return {
-    fetchProject: (id, token) => dispatch(fetchProject(id, token)),
-  }
+const mapStateToProps = state => ({
+	selectedProject: state.projects.selectedProject,
+	token: (state.auth && state.auth.access && state.auth.access.token)
+		? state.auth.access.token
+		: null,
 }
+);
+
+const mapDispatchToProps = dispatch => ({
+	fetchProject: (id, token) => dispatch(fetchProject(id, token)),
+});
+
 export default withRouter(connect(mapStateToProps, mapDispatchToProps)(ProjectExtended));
