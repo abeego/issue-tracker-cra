@@ -6,8 +6,8 @@ const Home = () => (
 		<h2>
 			Welcome back!
 		</h2>
-		<Link href="./login" to="/login">Log in</Link>
-		<Link href="./register" to="/register">Sign in</Link>
+		<Link href="/login" to="/login">Log in</Link>
+		<Link href="/register" to="/register">Sign in</Link>
 	</div>
 )
 

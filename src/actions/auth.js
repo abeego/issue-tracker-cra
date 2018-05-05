@@ -37,14 +37,17 @@ export const register = (username, email, password) => ({
   },
 });
 
-export const refreshAccessToken = token => ({
-  [RSAA]: {
-    endpoint: '/auth/token/refresh/',
-    method: 'POST',
-    body: JSON.stringify({ refresh: token }),
-    headers: { 'Content-Type': 'application/json' },
-    types: [
-      TOKEN_REQUEST, TOKEN_RECEIVED, TOKEN_FAILURE,
-    ],
-  },
-});
+export const refreshAccessToken = token => {
+  console.log(token);
+  return {
+    [RSAA]: {
+      endpoint: '/api/token/refresh/',
+      method: 'POST',
+      body: JSON.stringify({ refresh: token }),
+      headers: { 'Content-Type': 'application/json' },
+      types: [
+        TOKEN_REQUEST, TOKEN_RECEIVED, TOKEN_FAILURE,
+      ],
+    },  
+  }
+};

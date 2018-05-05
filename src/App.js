@@ -1,6 +1,6 @@
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import React from 'react';
-import { apiMiddleware } from 'redux-api-middleware';
+import apiMiddleware from './middleware';
 import { Provider } from 'react-redux';
 import { createStore, applyMiddleware } from 'redux';
 

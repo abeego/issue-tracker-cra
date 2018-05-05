@@ -1,6 +1,4 @@
 
-refresh
-
 Log out button
 
 fetch user info and save it in the localstorage

@@ -10,3 +10,4 @@ export const isAccessTokenExpired = state => fromAuth.isAccessTokenExpired(state
 export const refreshToken = state => fromAuth.refreshToken(state.auth);
 export const isRefreshTokenExpired = state => fromAuth.isRefreshTokenExpired(state.auth);
 export const authErrors = state => fromAuth.errors(state.auth);
+export const withAuth = state => fromAuth.withAuth(state.auth);
