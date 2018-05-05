@@ -1,4 +1,4 @@
-import { BrowserRouter as Router, Route, Redirect } from 'react-router-dom';
+import { BrowserRouter as Router, Route, Redirect, Switch } from 'react-router-dom';
 import React from 'react';
 import { apiMiddleware } from 'redux-api-middleware';
 import { Provider } from 'react-redux';
@@ -15,17 +15,19 @@ import PrivateRoute from './containers/PrivateRoute';
 import ProjectsList from './containers/ProjectsList';
 import ProjectExtended from './containers/ProjectExtended';
 
+const Home = () => <div>Welcome back!</div>
+
 const store = createStore(rootReducer, applyMiddleware(apiMiddleware));
 
 const App = () => (
 	<Provider store={store} >
 		<Router>
-			<div>
-				<Route path="/" component={Login} />
+			<Switch>
 				<Route path="/register" component={Register} />
-				<PrivateRoute path="/projects" component={ProjectsList} />
-				<PrivateRoute path="/project/*" component={ProjectExtended} />
-			</div>
+				<PrivateRoute exact path="/" component={ProjectsList} />
+				<PrivateRoute exact path="/projects" component={ProjectsList} />
+				<PrivateRoute path="/project/:id" component={ProjectExtended} />
+			</Switch>
 		</Router>
 	</Provider>
 );

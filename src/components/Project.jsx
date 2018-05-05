@@ -10,7 +10,7 @@ import '../project.scss';
 const Project = ({
   project: {
     id, name, description, created_at,
-  }
+  },
 }) => (
   <Item.Group className="project">
     <Item>

@@ -9,7 +9,7 @@ import { authErrors, isAuthenticated } from '../reducers';
 
 const Login = (props) => {
   if (props.isAuthenticated) {
-    return (<Redirect to="/projects" />);
+    return (<Redirect to="/" />);
   }
   return (
     <LoginUserInput {...props} />

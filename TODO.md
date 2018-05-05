@@ -1,4 +1,4 @@
-save JWT to local storage
+fix that private route and routing!!!! 
 
 create private route 
 
