@@ -69,7 +69,7 @@ ProjectExtended.propTypes = {
 	token: PropTypes.string,
 	match: PropTypes.shape({
 		params: PropTypes.shape({
-			id: PropTypes.number,
+			id: PropTypes.string,
 		}),
 	}),
 	selectedProject: PropTypes.shape({

@@ -1,6 +1,5 @@
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import React from 'react';
-import apiMiddleware from './middleware';
 import { Provider } from 'react-redux';
 import { createStore, applyMiddleware } from 'redux';
 
@@ -8,6 +7,7 @@ import 'semantic-ui-css/semantic.min.css';
 import './styles/app.css';
 
 import rootReducer from './reducers';
+import apiMiddleware from './middleware';
 
 import Home from './components/Home';
 import Login from './containers/Login';

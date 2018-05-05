@@ -41,8 +41,6 @@ export default (state = initialState, action) => {
 			errors: {},
 		};
 	case auth.TOKEN_RECEIVED:
-		console.log(action);
-
 		return {
 			...state,
 			access: {
@@ -69,8 +67,6 @@ export default (state = initialState, action) => {
 };
 
 export function accessToken(state) {
-  console.log('accessToken', state);
-  
 	if (state.auth.access) {
 		return state.auth.access.token;
 	} else {
@@ -79,17 +75,11 @@ export function accessToken(state) {
 }
 
 export function refreshToken(state) {
-  console.log(state);
-  
-  
   if (state.auth && state.auth.refresh) {
     return state.auth.refresh;
   } else {
     return localStorage.getItem('refresh');
   }
-	// if (localStorage.getItem('refresh')) {
-	// 	return localStorage.getItem('refresh');
-	// }
 }
 
 export function isAccessTokenExpired(state) {
@@ -101,16 +91,12 @@ export function isAccessTokenExpired(state) {
 
 export function isRefreshTokenExpired(state) {
 	if (state.refresh && state.refresh.exp) {
-		console.log('manji? ', state.refresh.exp < (new Date().getTime() / 1000));
-
 		return (1000 * state.refresh.exp) - (new Date()).getTime() < 5000;
 	}
 	return true;
 }
 
 export function isAuthenticated(state) {
-	console.log('expired', isRefreshTokenExpired(state));
-
 	return !isRefreshTokenExpired(state);
 }
 
