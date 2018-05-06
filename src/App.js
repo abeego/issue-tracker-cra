@@ -16,6 +16,7 @@ import Register from './containers/Register';
 import PrivateRoute from './containers/PrivateRoute';
 import ProjectsList from './containers/ProjectsList';
 import ProjectExtended from './containers/ProjectExtended';
+import IssueExtended from './containers/IssueExtended';
 
 const store = createStore(rootReducer, applyMiddleware(apiMiddleware));
 
@@ -30,6 +31,7 @@ const App = () => (
 					<Route exact path="/" component={Home} />
 					<PrivateRoute exact path="/projects" component={ProjectsList} />
 					<PrivateRoute path="/project/:id" component={ProjectExtended} />
+					<PrivateRoute path="/issue/:id" component={IssueExtended} />
 				</Switch>
 			</div>
 		</Router>

@@ -4,7 +4,6 @@ import { connect } from 'react-redux';
 import { Loader } from 'semantic-ui-react';
 
 import { getProjectsList } from '../actions/projects';
-import { logout } from '../actions/auth';
 
 import Project from '../components/Project';
 
@@ -34,7 +33,6 @@ class ProjectsList extends Component {
 
 ProjectsList.propTypes = {
 	getProjectsList: PropTypes.func,
-	logout: PropTypes.func,
 	token: PropTypes.string,
 	projectsList: PropTypes.arrayOf(PropTypes.object),
 };
@@ -48,7 +46,6 @@ const mapStateToProps = state => ({
 
 const mapDispatchToProps = dispatch => ({
 	getProjectsList: token => dispatch(getProjectsList(token)),
-	logout: () => dispatch(logout()),
 	// addProject
 });
 export default connect(mapStateToProps, mapDispatchToProps)(ProjectsList);

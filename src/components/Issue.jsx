@@ -1,13 +1,24 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { Card } from 'semantic-ui-react';
+import { Link } from 'react-router-dom';
 
-const Issue = ({ issue: { name, description, created_at: createdAt, status } }) => (
+const Issue = ({ issue, issue: { name, description, created_at: createdAt, status, id } }) => (
 	<Card 
 		className="issue" 
 		style={{ borderLeft: `4px solid  ${getColor(status)}` }}
 	>
-		<Card.Content header={name} />
+		<Card.Content>
+			<Link  
+				href={`/issue/${id}`} 
+				to={{
+					pathname: `/issue/${id}`,
+					state: issue,
+				}}
+			>
+				{name}
+			</Link>
+		</Card.Content>
 		<Card.Content description={description} />
 		<Card.Content description={createdAt} />
 		<Card.Content description={status} />
