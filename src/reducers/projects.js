@@ -26,6 +26,17 @@ export default (state = initialState, action) => {
 			...state,
 			errors: action.payload,
 		};
+	case projects.PROJECT_CREATE_SUCCESS:
+		return {
+			...state,
+			createdProject: action.payload,
+		};
+	case projects.PROJECT_CREATE_FAILURE:
+		return {
+			...state,
+			errors: action.payload,
+		};
+
 	default:
 		return state;
 	}

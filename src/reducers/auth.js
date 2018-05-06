@@ -118,7 +118,7 @@ export function errors(state) {
 	return state.errors;
 }
 
-export function withAuth(headers = {}) {
+export function withAuth(headers) {
 	return state => ({
 		...headers,
 		Authorization: `Bearer ${accessToken(state)}`,

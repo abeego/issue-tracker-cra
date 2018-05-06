@@ -12,9 +12,10 @@
     color: #e9253a; }
 
 .project {
-  display: flex;
+  display: inline-flex;
   justify-content: flex-start;
-  text-align: left; }
+  text-align: left;
+  padding: 2em; }
   .project .header {
     text-decoration: none;
     color: #5DC0EC !important;
@@ -72,7 +73,9 @@ body {
       body .container a:hover {
         background-color: rgba(0, 0, 0, 0.05); }
     body .container .projects {
-      display: block; }
+      display: flex;
+      justify-content: space-around;
+      flex-wrap: wrap; }
     body .container .ui.loader:after {
       border-color: #5DC0EC transparent transparent; }
 

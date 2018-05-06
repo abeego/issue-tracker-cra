@@ -1,7 +1,8 @@
 .project {
-  display: flex;
+  display: inline-flex;
   justify-content: flex-start;
-  text-align: left; }
+  text-align: left;
+  padding: 2em; }
   .project .header {
     text-decoration: none;
     color: #5DC0EC !important;

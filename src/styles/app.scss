@@ -44,7 +44,9 @@ body {
   
   
     .projects {
-      display: block;
+      display: flex;
+      justify-content: space-around;
+      flex-wrap: wrap;
     }
   
     .ui.loader:after {
