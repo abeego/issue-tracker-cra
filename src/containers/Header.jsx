@@ -7,7 +7,7 @@ import { isAuthenticated } from '../reducers';
 
 class Header extends Component {
 	componentWillMount() {
-		// TODO fetch user data ???
+		// TODO fetch user data and display them ???
 	}
 
 	render() {

@@ -1,6 +1,5 @@
 .login-user-input {
   display: inline-block;
-  margin-top: 2em !important;
   min-width: 300px;
   max-width: 700px; }
   .login-user-input .ui.button {
@@ -59,12 +58,11 @@ body {
     justify-content: space-around; }
   body .container {
     width: 100%;
-    padding: 0 3em 3em 3em; }
+    padding: 3em; }
     body .container .page-header {
       width: 100%;
       display: inline-flex;
-      justify-content: flex-end;
-      height: 5em; }
+      justify-content: flex-end; }
       body .container .page-header .logout-button {
         align-self: flex-end; }
     body .container a {
