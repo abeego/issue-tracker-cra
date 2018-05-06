@@ -30,7 +30,8 @@ class ProjectsList extends Component {
 		this.setState({ modalOpened: true });
 	}
 
-	createProject = () => {
+	createProject = (e) => {
+		e.preventDefault();
 		const { name, description } = this.state;
 		// TODO validation? 
 		if (name && description) {

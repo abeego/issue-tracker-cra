@@ -36,6 +36,7 @@ export default class RegisterUserInput extends Component {
   }
 
   submitForm = (e) => {
+    // TODO redundunt checks? 
     e.preventDefault();
     if (this.state.username.length
       && this.state.password.length
@@ -66,6 +67,7 @@ export default class RegisterUserInput extends Component {
         </Header>
         <Form onSubmit={this.submitForm}>
           <Form.Input
+            required
             type="text"
             placeholder="User Name"
             name="username"
@@ -74,6 +76,7 @@ export default class RegisterUserInput extends Component {
             error={!!this.state.usernameError}
           />
           <Form.Input
+            required
             type="email"
             placeholder="email@email.com"
             name="email"
@@ -82,6 +85,7 @@ export default class RegisterUserInput extends Component {
             error={!!this.state.emailError}
           />
           <Form.Input
+            required
             type="password"
             placeholder="*******"
             name="password"
@@ -90,6 +94,7 @@ export default class RegisterUserInput extends Component {
             error={!!this.state.passwordError}
           />
           <Form.Input
+            required
             type="password"
             placeholder="*******"
             name="passwordConfirmed"

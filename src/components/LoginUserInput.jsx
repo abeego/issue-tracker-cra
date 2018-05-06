@@ -16,6 +16,7 @@ export default class LoginUserInput extends Component {
   }
 
   submitForm = (e) => {
+    // TODO redundunt checks?
     e.preventDefault();
     if (this.state.username.length > 0 && this.state.password.length > 0) {
       this.props.onSubmit(this.state.username, this.state.password);
@@ -35,6 +36,7 @@ export default class LoginUserInput extends Component {
         </Header>
         <Form onSubmit={this.submitForm}>
           <Form.Input
+            required
             type="text"
             placeholder="User Name"
             name="username"
@@ -43,6 +45,7 @@ export default class LoginUserInput extends Component {
             error={!!this.state.usernameError}
           />
           <Form.Input
+            required
             type="password"
             placeholder="*******"
             name="password"
