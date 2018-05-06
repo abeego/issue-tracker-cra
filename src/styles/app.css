@@ -1,5 +1,6 @@
 .login-user-input {
-  padding-top: 2em;
+  display: inline-block;
+  margin-top: 2em !important;
   min-width: 300px;
   max-width: 700px; }
   .login-user-input .ui.button {
@@ -17,7 +18,8 @@
   text-align: left; }
   .project .header {
     text-decoration: none;
-    color: #5DC0EC !important; }
+    color: #5DC0EC !important;
+    padding-top: 1em; }
   .project .meta, .project .description {
     padding-left: .5em; }
 
@@ -51,21 +53,30 @@ body {
   color: #3d3d3d;
   text-align: center;
   overflow-x: visible; }
-  body a {
-    color: #5DC0EC;
-    padding: .5em;
-    cursor: pointer; }
-    body a:hover {
-      background-color: rgba(0, 0, 0, 0.05); }
   body #root {
     width: 100%;
     display: flex;
-    justify-content: space-around;
-    margin-top: 5em; }
-  body .projects {
-    display: block; }
-  body .ui.loader:after {
-    border-color: #5DC0EC transparent transparent; }
+    justify-content: space-around; }
+  body .container {
+    width: 100%;
+    padding: 0 3em 3em 3em; }
+    body .container .page-header {
+      width: 100%;
+      display: inline-flex;
+      justify-content: flex-end;
+      height: 5em; }
+      body .container .page-header .logout-button {
+        align-self: flex-end; }
+    body .container a {
+      color: #5DC0EC;
+      padding: .5em;
+      cursor: pointer; }
+      body .container a:hover {
+        background-color: rgba(0, 0, 0, 0.05); }
+    body .container .projects {
+      display: block; }
+    body .container .ui.loader:after {
+      border-color: #5DC0EC transparent transparent; }
 
 [class*='ui'] {
   font-family: "Roboto", sans-serif !important; }

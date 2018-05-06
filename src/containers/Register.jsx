@@ -8,26 +8,26 @@ import { register } from '../actions/auth';
 import { authErrors, isAuthenticated } from '../reducers';
 
 const Register = (props) => {
-  if (props.isAuthenticated) {
-    return (<Redirect to="/" />);
-  }
-  return (
-    <RegisterUserInput {...props} />
-  );
+	if (props.isAuthenticated) {
+		return (<Redirect to="/" />);
+	}
+	return (
+		<RegisterUserInput {...props} />
+	);
 };
 
 Register.propTypes = {
-  isAuthenticated: PropTypes.bool,
+	isAuthenticated: PropTypes.bool,
 };
 
 const mapStateToProps = state => ({
-  errors: authErrors(state),
-  isAuthenticated: isAuthenticated(state),
-  newUser: state.auth.newUser,
+	errors: authErrors(state),
+	isAuthenticated: isAuthenticated(state),
+	newUser: state.auth.newUser,
 });
 
 const mapDispatchToProps = dispatch => ({
-  onSubmit: (username, email, password) => dispatch(register(username, email, password)),
+	onSubmit: (username, email, password) => dispatch(register(username, email, password)),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(Register);

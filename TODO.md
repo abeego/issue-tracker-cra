@@ -1,9 +1,12 @@
 
-Log out button
-
+Issue page
+- display comments
+- add new comment
+- upload a file
+ 
 fetch user info and save it in the localstorage
 
-display user name with 
+display user name ? 
 
 Projects:
 - button to create new
@@ -11,14 +14,9 @@ Projects:
 
 
 Issue Card: 
-- show some color for status
 - edit
 - add new
 
-Issue page
-- display comments
-- add new comment
-- upload a file
 
 
 

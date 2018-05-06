@@ -9,6 +9,7 @@ import './styles/app.css';
 import rootReducer from './reducers';
 import apiMiddleware from './middleware';
 
+import Header from './containers/Header';
 import Home from './components/Home';
 import Login from './containers/Login';
 import Register from './containers/Register';
@@ -21,13 +22,16 @@ const store = createStore(rootReducer, applyMiddleware(apiMiddleware));
 const App = () => (
 	<Provider store={store} >
 		<Router>
-			<Switch>
-				<Route exact path="/register" component={Register} />
-				<Route exact path="/login" component={Login} />
-				<Route exact path="/" component={Home} />
-				<PrivateRoute exact path="/projects" component={ProjectsList} />
-				<PrivateRoute path="/project/:id" component={ProjectExtended} />
-			</Switch>
+			<div className="container">
+				<Header />
+				<Switch>
+					<Route exact path="/register" component={Register} />
+					<Route exact path="/login" component={Login} />
+					<Route exact path="/" component={Home} />
+					<PrivateRoute exact path="/projects" component={ProjectsList} />
+					<PrivateRoute path="/project/:id" component={ProjectExtended} />
+				</Switch>
+			</div>
 		</Router>
 	</Provider>
 );

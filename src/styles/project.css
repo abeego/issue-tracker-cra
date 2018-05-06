@@ -4,7 +4,8 @@
   text-align: left; }
   .project .header {
     text-decoration: none;
-    color: #5DC0EC !important; }
+    color: #5DC0EC !important;
+    padding-top: 1em; }
   .project .meta, .project .description {
     padding-left: .5em; }
 

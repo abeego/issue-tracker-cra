@@ -44,7 +44,6 @@ class ProjectExtended extends Component {
 	render() {
 		return (
 			<div className="project-extended">
-				<Link href="/projects" to="/projects">Go back to Projects Page</Link>
 				<Loader active={!this.props.selectedProject} content="Fetching project" />
 				{this.props.selectedProject && (
 					<React.Fragment>
@@ -59,6 +58,7 @@ class ProjectExtended extends Component {
 						</div>
 					</React.Fragment>
 				)}
+				<Link href="/projects" to="/projects">Go back to Projects Page</Link>
 			</div>
 		);
 	}

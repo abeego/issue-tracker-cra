@@ -26,6 +26,7 @@ export default (state = initialState, action) => {
 			errors: {},
 			newUser: action.payload.message[0],
 		};
+
 	case auth.LOGIN_SUCCESS:
 		localStorage.setItem('access', action.payload.access);
 		localStorage.setItem('refresh', action.payload.refresh);
@@ -40,6 +41,17 @@ export default (state = initialState, action) => {
 			},
 			errors: {},
 		};
+
+	case 'LOGOUT':
+		console.log(action);
+		
+		localStorage.clear();
+		return {
+			auth: {},
+			access: {},
+			refresh: {},
+		};
+
 	case auth.TOKEN_RECEIVED:
 		return {
 			...state,
@@ -48,6 +60,7 @@ export default (state = initialState, action) => {
 				...jwtDecode(action.payload.access),
 			},
 		};
+
 	case auth.LOGIN_FAILURE:
 	case auth.TOKEN_FAILURE:
 		return {
@@ -55,6 +68,7 @@ export default (state = initialState, action) => {
 			refresh: undefined,
 			errors: action.payload.response || { non_field_errors: action.payload.statusText },
 		};
+
 	case auth.FAILURE:
 		return {
 			access: undefined,

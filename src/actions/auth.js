@@ -25,6 +25,10 @@ export const login = (username, password) => ({
 	},
 });
 
+export const logout = () => ({
+	type: 'LOGOUT',
+});
+
 export const register = (username, email, password) => ({
 	[RSAA]: {
 		endpoint: '/api/registration/',
@@ -37,16 +41,14 @@ export const register = (username, email, password) => ({
 	},
 });
 
-export const refreshAccessToken = (token) => {
-	return {
-		[RSAA]: {
-			endpoint: '/api/token/refresh/',
-			method: 'POST',
-			body: JSON.stringify({ refresh: token }),
-			headers: { 'Content-Type': 'application/json' },
-			types: [
-				TOKEN_REQUEST, TOKEN_RECEIVED, TOKEN_FAILURE,
-			],
-		},
-	};
-};
+export const refreshAccessToken = token => ({
+	[RSAA]: {
+		endpoint: '/api/token/refresh/',
+		method: 'POST',
+		body: JSON.stringify({ refresh: token }),
+		headers: { 'Content-Type': 'application/json' },
+		types: [
+			TOKEN_REQUEST, TOKEN_RECEIVED, TOKEN_FAILURE,
+		],
+	},
+});
