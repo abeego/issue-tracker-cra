@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { Loader, Modal, Form, Icon, Message } from 'semantic-ui-react';
+import { Loader, Modal, Form, Icon } from 'semantic-ui-react';
 
 import { getProjectsList, createProject } from '../actions/projects';
 
@@ -53,11 +53,8 @@ class ProjectsList extends Component {
 	createProject = (e) => {
 		e.preventDefault();
 		const { name, description } = this.state;
-		// TODO validation? 
 		if (name && description) {
 			this.props.createProject(name, description, this.props.token);
-			// TODO ceck for success and than close 
-			// otherwise throw error
 		}
 	}
 
@@ -70,7 +67,6 @@ class ProjectsList extends Component {
 	}
 
 	render() {
-		console.log(this.state.createdProject && this.state.createdProject.name && this.state.createdProject.name.length > 0);
 		return (
 			<React.Fragment>
 				<a onClick={this.openModal}>CREATE NEW PROJECT</a>
@@ -113,8 +109,15 @@ class ProjectsList extends Component {
 										placeholder="Project description" 
 										onChange={this.handleChange}
 									/>
-									<Form.Button className="inline-block" content='Cancel' onClick={this.closeModal} />
-									<Form.Button className="inline-block" content='Submit' />
+									<Form.Button
+										className="inline-block"
+										content='Cancel'
+										onClick={this.closeModal}
+									/>
+									<Form.Button
+										className="inline-block"
+										content='Submit'
+									/>
 								</Form.Group>
 							</Form>
 							{this.state.error && (
