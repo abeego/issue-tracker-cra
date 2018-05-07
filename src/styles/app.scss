@@ -59,3 +59,20 @@ body {
 [class*='ui'] {
   font-family: $roboto !important;
 }
+
+.u.modal.transition.visible.active {
+  .content > div{
+    display: block;
+  }
+}
+
+.ui.form .fields {
+  display: block;
+  .field {
+    padding-top: 1em;
+  }
+}
+
+.field.inline-block {
+  display: inline-block !important;
+}

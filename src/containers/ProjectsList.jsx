@@ -37,7 +37,11 @@ class ProjectsList extends Component {
 		if ( (!this.props.createdProject && newProps.createdProject)
 			|| (newProps.createdProject && newProps.createdProject.name 
 				&& this.props.createdProject.name !== newProps.createdProject.name)) {
-			this.setState({ createdProject: newProps.createdProject });
+			this.setState({ 
+				createdProject: newProps.createdProject,
+				description: '',
+				name: '',
+			});
 			this.props.getProjectsList();
 		}
 	}
@@ -66,6 +70,7 @@ class ProjectsList extends Component {
 	}
 
 	render() {
+		console.log(this.state.createdProject && this.state.createdProject.name && this.state.createdProject.name.length > 0);
 		return (
 			<React.Fragment>
 				<a onClick={this.openModal}>CREATE NEW PROJECT</a>
@@ -108,16 +113,20 @@ class ProjectsList extends Component {
 										placeholder="Project description" 
 										onChange={this.handleChange}
 									/>
-									{this.state.error && (
-										<div>{this.state.error} </div>
-									)}
-									{this.state.createdProject && (
-										<div>{`Project ${this.state.createdProject.name} created`}</div>
-									)}
-									<Form.Button content='Cancel' onClick={this.closeModal} />
-									<Form.Button content='Submit' />
+									<Form.Button className="inline-block" content='Cancel' onClick={this.closeModal} />
+									<Form.Button className="inline-block" content='Submit' />
 								</Form.Group>
 							</Form>
+							{this.state.error && (
+								<div className="ui negative message">
+									{this.state.error}
+								</div>
+							)}
+							{this.state.createdProject && !this.state.name && !this.state.description && (
+								<div className="ui success message">
+									{`Project ${this.state.createdProject.name} created`}
+								</div>
+							)}
 						</Modal.Content>
 					</Modal>
 				</div>

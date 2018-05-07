@@ -80,3 +80,14 @@ body {
 
 [class*='ui'] {
   font-family: "Roboto", sans-serif !important; }
+
+.u.modal.transition.visible.active .content > div {
+  display: block; }
+
+.ui.form .fields {
+  display: block; }
+  .ui.form .fields .field {
+    padding-top: 1em; }
+
+.field.inline-block {
+  display: inline-block !important; }
