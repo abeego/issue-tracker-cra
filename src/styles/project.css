@@ -13,8 +13,7 @@
 .project-extended {
   width: 100%;
   min-width: 900px;
-  height: 100%;
-  overflow-x: scroll; }
+  height: 100%; }
   .project-extended .issues {
     display: flex;
     justify-content: space-evenly;

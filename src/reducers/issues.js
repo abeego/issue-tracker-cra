@@ -21,7 +21,7 @@ export default (state = initialState, action) => {
 	case issues.ISSUE_CREATE_FAILURE:
 		return {
 			...state,
-			errors: action.payload,
+			errors: action.payload.response.name,
 		};
 
 	default:

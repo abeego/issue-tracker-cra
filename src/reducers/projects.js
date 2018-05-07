@@ -29,12 +29,13 @@ export default (state = initialState, action) => {
 	case projects.PROJECT_CREATE_SUCCESS:
 		return {
 			...state,
+			errors: undefined,
 			createdProject: action.payload,
 		};
 	case projects.PROJECT_CREATE_FAILURE:
 		return {
 			...state,
-			errors: action.payload,
+			errors: action.payload.response.name,
 		};
 
 	default:

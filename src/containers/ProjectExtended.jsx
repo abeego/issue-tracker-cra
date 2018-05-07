@@ -8,7 +8,7 @@ import PropTypes from 'prop-types';
 // refresh after creation
 // throw errors if there are some
 // check ig it has been create before you close modal
-import { Header, Loader, Image , Modal, Form } from 'semantic-ui-react';
+import { Header, Loader, Image, Icon, Modal, Form } from 'semantic-ui-react';
 
 import ProjectPicture from '../images/project.png';
 import Issue from '../components/Issue';
@@ -24,7 +24,7 @@ class ProjectExtended extends Component {
 			name: '',
 			description: '',
 			status: 'Planed',
-			project: ''
+			project: '',
 		}
 	}
 
@@ -32,6 +32,11 @@ class ProjectExtended extends Component {
 		const { match: { params: { id } } } = this.props;
 		if (id) this.props.fetchProject(id, this.props.token);
 		this.setState({ project: id });
+	}
+
+	componentWillReceiveProps = (newProps) => {
+		console.log(newProps.selectedProject);
+		console.log('newPROPS', newProps);
 	}
 
 	groupBy(items, key) {
@@ -49,7 +54,7 @@ class ProjectExtended extends Component {
 
 	sortIssues(issues) {
 		const sortedIssues = this.groupBy(issues, 'status');
-		console.log(sortedIssues);
+console.log(sortedIssues);
 		
 		const order = ['Planed', 'In Progress', 'Verified', 'Done'];
 		return order.map(key => (
@@ -73,7 +78,7 @@ class ProjectExtended extends Component {
 			this.props.createIssue(name, description, project, status, this.props.token);
 			// TODO ceck for success and than close 
 			// otherwise throw error
-			this.setState({ modalOpened: false });
+			// this.setState({ modalOpened: false });
 		}
 	}
 
@@ -81,15 +86,11 @@ class ProjectExtended extends Component {
 		this.setState({ [name]: value });
 	}
 
-	render() {
-		const modalStyle = {
-			modal : {
-				marginTop: '100px !important',
-				marginLeft: 'auto',
-				marginRight: 'auto'
-			}
-		};
+	closeModal = () => {
+		this.setState({ modalOpened: false });
+	}
 
+	render() {
 		return (
 			<div className="project-extended">
 				<a onClick={this.openModal}>CREATE NEW ISSUE</a>
@@ -102,14 +103,23 @@ class ProjectExtended extends Component {
 								{this.props.selectedProject.name}
 							</React.Fragment>
 						</Header>
-						<div className="issues">
-							{this.props.selectedProject.issues.length > 0 && this.sortIssues(this.props.selectedProject.issues)} 
-						</div>
+						{this.props.selectedProject.issues.length > 0 && (
+							<div className="issues">
+								{this.sortIssues(this.props.selectedProject.issues)}
+							</div>
+						)}
 					</React.Fragment>
 				)}
 				<Link href="/projects" to="/projects">Go back to Projects Page</Link>
-				<Modal open={this.state.modalOpened} style={modalStyle.modal}>
-						<Modal.Header>Create new issue</Modal.Header>
+				<Modal open={this.state.modalOpened} closeIcon>
+						<Modal.Header>
+							Create new issue
+							<Icon 
+								name="remove"
+								style={{ float: 'right' }}
+								onClick={this.closeModal}
+							/>
+						</Modal.Header>
 						<Modal.Content>
 							<Form  onClick={this.createIssue}>
 								<Form.Group >
@@ -129,7 +139,7 @@ class ProjectExtended extends Component {
 										placeholder="Issue description" 
 										onChange={this.handleChange}
 									/>
-									<Form.Button content='Cancel' onClick={() => this.setState({ modalOpened: false})} />
+									<Form.Button content='Cancel' onClick={this.closeModal} />
 									<Form.Button content='Submit' />
 								</Form.Group>
 							</Form>
@@ -160,6 +170,7 @@ const mapStateToProps = state => ({
 	token: (state.auth && state.auth.access && state.auth.access.token)
 		? state.auth.access.token
 		: null,
+	errors: state.issues.errors,
 }
 );
 

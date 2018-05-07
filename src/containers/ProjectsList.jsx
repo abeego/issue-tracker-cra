@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { Loader, Modal, Form } from 'semantic-ui-react';
+import { Loader, Modal, Form, Icon, Message } from 'semantic-ui-react';
 
 import { getProjectsList, createProject } from '../actions/projects';
 
@@ -17,6 +17,8 @@ class ProjectsList extends Component {
 			modalOpened: false, 
 			name: '',
 			description: '',
+			error: null,
+			createdProject: null,
 		};
 	}
 
@@ -24,9 +26,23 @@ class ProjectsList extends Component {
 		this.props.getProjectsList(this.props.token);
 	}
 
+	componentWillReceiveProps = (newProps) => {
+		console.log('newProps in project ', newProps, newProps.errors);
+		if (newProps.error && newProps.error.length && newProps.error !== this.state.error) {
+			this.setState({ error: newProps.error[0] });
+		} else if (this.state.error && !newProps.error) {
+			this.setState({ error: null });
+		}
+
+		if ( (!this.props.createdProject && newProps.createdProject)
+			|| (newProps.createdProject && newProps.createdProject.name 
+				&& this.props.createdProject.name !== newProps.createdProject.name)) {
+			this.setState({ createdProject: newProps.createdProject });
+			this.props.getProjectsList();
+		}
+	}
+
 	openModal = () => {
-		console.log('clicked');
-		
 		this.setState({ modalOpened: true });
 	}
 
@@ -38,7 +54,6 @@ class ProjectsList extends Component {
 			this.props.createProject(name, description, this.props.token);
 			// TODO ceck for success and than close 
 			// otherwise throw error
-			this.setState({ modalOpened: false });
 		}
 	}
 
@@ -46,15 +61,11 @@ class ProjectsList extends Component {
 		this.setState({ [name]: value });
 	}
 
-	render() {
-		const modalStyle = {
-			modal : {
-				marginTop: '100px !important',
-				marginLeft: 'auto',
-				marginRight: 'auto'
-			}
-		};
+	closeModal = () => {
+		this.setState({ modalOpened: false });
+	}
 
+	render() {
 		return (
 			<React.Fragment>
 				<a onClick={this.openModal}>CREATE NEW PROJECT</a>
@@ -70,8 +81,14 @@ class ProjectsList extends Component {
 							/>
 						))
 					}
-					<Modal open={this.state.modalOpened} style={modalStyle.modal}>
-						<Modal.Header>Create new project</Modal.Header>
+					<Modal open={this.state.modalOpened} >
+						<Modal.Header>Create new project
+							<Icon
+								name="remove" 
+								style={{ float: 'right'}}
+								onClick={this.closeModal}
+							/>
+						</Modal.Header>
 						<Modal.Content>
 							<Form  onClick={this.createProject}>
 								<Form.Group >
@@ -91,7 +108,13 @@ class ProjectsList extends Component {
 										placeholder="Project description" 
 										onChange={this.handleChange}
 									/>
-									<Form.Button content='Cancel' onClick={() => this.setState({ modalOpened: false})} />
+									{this.state.error && (
+										<div>{this.state.error} </div>
+									)}
+									{this.state.createdProject && (
+										<div>{`Project ${this.state.createdProject.name} created`}</div>
+									)}
+									<Form.Button content='Cancel' onClick={this.closeModal} />
 									<Form.Button content='Submit' />
 								</Form.Group>
 							</Form>
@@ -114,6 +137,8 @@ const mapStateToProps = state => ({
 		? state.auth.access.token
 		: null,
 	projectsList: state.projects.projectsList,
+	error: state.projects.errors,
+	createdProject: state.projects.createdProject,
 });
 
 const mapDispatchToProps = dispatch => ({
