@@ -9,14 +9,12 @@ fetch user info and save it in the localstorage
 display user name ? 
 
 Projects:
-- button to create new
 - edit existing 
 
 
 Issue Card: 
 - edit
-- add new
-
+- drag and drop to change status
 
 
 

@@ -1,0 +1,11 @@
+@import 'sass-variables.scss';
+
+.issue-extended {
+	text-align: left;
+	.comment {
+		display: inline-flex;
+		.content {
+			padding-left: 1em;
+		}
+	}
+}

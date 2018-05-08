@@ -43,6 +43,13 @@
         padding: 1em;
         text-align: left; }
 
+.issue-extended {
+  text-align: left; }
+  .issue-extended .comment {
+    display: inline-flex; }
+    .issue-extended .comment .content {
+      padding-left: 1em; }
+
 html {
   min-width: 900px; }
 
