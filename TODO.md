@@ -1,22 +1,21 @@
 
 Issue page
-- display comments
-- add new comment
-- upload a file
+- upload a file ?? server support needed
  
-fetch user info and save it in the localstorage
+fetch user info and save it in the localstorage?
 
 display user name ? 
 
 Projects:
 - edit existing 
+- delete
 
 
 Issue Card: 
-- edit
+- edit existing
+- delete
 - drag and drop to change status
-- add comment
 
-
+Refactor
 
 Do the tests
