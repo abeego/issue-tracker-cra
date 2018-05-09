@@ -15,6 +15,7 @@ Projects:
 Issue Card: 
 - edit
 - drag and drop to change status
+- add comment
 
 
 

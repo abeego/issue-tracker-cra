@@ -1,6 +1,6 @@
 .issue-extended {
   text-align: left; }
   .issue-extended .comment {
-    display: inline-flex; }
+    display: block; }
     .issue-extended .comment .content {
       padding-left: 1em; }

@@ -1,8 +1,8 @@
-import { isRSAA, apiMiddleware } from 'redux-api-middleware';
+import { RSAA, isRSAA, apiMiddleware } from 'redux-api-middleware';
 
 import { TOKEN_RECEIVED, refreshAccessToken } from './actions/auth';
-import { refreshToken, isAccessTokenExpired } from './reducers';
-
+import { refreshToken, isAccessTokenExpired, isRefreshTokenExpired } from './reducers';
+import { login } from './actions/auth';
 
 export function createApiMiddleware() {
 	let postponedRSAAs = [];
@@ -20,6 +20,8 @@ export function createApiMiddleware() {
 					});
 					postponedRSAAs = [];
 				} else {
+					console.log(nextAction);
+					
 					next(nextAction);
 				}
 			};
@@ -27,11 +29,17 @@ export function createApiMiddleware() {
 			if (isRSAA(action)) {
 				const state = getState();
 				const token = refreshToken(state);
-				if (token && isAccessTokenExpired(state)) {
+				console.log(token, isAccessTokenExpired(state));
+				console.log(isRefreshTokenExpired(state));
+				
+				if (isRefreshTokenExpired(state)) {
+					const body = JSON.parse(action[RSAA].body);
+					return rsaaMiddleware(nextCheckPostponed)(login(body.username, body.password));
+				} else if (token && isAccessTokenExpired(state)) {
 					postponedRSAAs.push(action);
 					if (postponedRSAAs.length === 1) {
 						return rsaaMiddleware(nextCheckPostponed)(refreshAccessToken(token));
-					}
+					} 
 					return;
 				}
 

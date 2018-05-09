@@ -36,13 +36,12 @@ export const fetchProject = (id, token) => ({
 });
 
 export const createProject = (name, description, token) => {
-	console.log('in action data', name, description, token);
 	return {
 		[RSAA]: {
 			endpoint: '/api/projects/',
 			method: 'POST',
 			body: JSON.stringify({ name, description }),
-			headers: withAuth({ 'Content-Type': 'application/json'	}),
+			headers: withAuth({ 'Content-Type': 'application/json' }),
 			types: [
 				PROJECT_CREATE, PROJECT_CREATE_SUCCESS, PROJECT_CREATE_FAILURE,
 			],

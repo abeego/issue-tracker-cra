@@ -5,7 +5,7 @@ const initialState = {
 };
 
 export default (state = initialState, action) => {
-	console.log(action, ...state);
+	// console.log(action, ...state);
 
 	switch (action.type) {
 	case issues.SELECT_ISSUE:
@@ -20,6 +20,17 @@ export default (state = initialState, action) => {
 			createdIssue: action.payload,
 		};
 	case issues.ISSUE_CREATE_FAILURE:
+		return {
+			...state,
+			errors: action.payload.response.name,
+		};
+	case issues.ADD_COMMENT_SUCCESS: 
+		return {
+			...state,
+			errors: undefined,
+			addedComment: action.payload,
+		};
+	case issues.ADD_COMMENT_FAILURE:
 		return {
 			...state,
 			errors: action.payload.response.name,

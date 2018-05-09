@@ -17,6 +17,8 @@ export default (state = initialState, action) => {
 			errors: action.payload,
 		};
 	case projects.PROJECT_FETCH_SUCCESS:
+		console.log(state);
+		
 		return {
 			...state,
 			selectedProject: action.payload,
