@@ -17,8 +17,6 @@ export default (state = initialState, action) => {
 			errors: action.payload,
 		};
 	case projects.PROJECT_FETCH_SUCCESS:
-		console.log(state);
-		
 		return {
 			...state,
 			selectedProject: action.payload,
@@ -39,6 +37,18 @@ export default (state = initialState, action) => {
 			...state,
 			errors: action.payload.response.name,
 		};
+	case projects.PROJECT_EDIT_SUCCESS:
+		return {
+			...state,
+			errors: undefined,
+			createdProject: action.payload,
+		};
+	case projects.PROJECT_EDIT_FAILURE:
+		return {
+			...state,
+			errors: action.payload.response.name,
+		};
+
 
 	default:
 		return state;

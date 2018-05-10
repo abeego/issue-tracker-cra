@@ -5,15 +5,13 @@ import PropTypes from 'prop-types';
 
 
 // TODO have modal from separate component?
-// refresh after creation
-// throw errors if there are some
-// check ig it has been create before you close modal
-import { Header, Loader, Image, Icon, Modal, Form } from 'semantic-ui-react';
+import { Header, Loader, Image, Icon, Modal, Form, Button } from 'semantic-ui-react';
 
 import ProjectPicture from '../images/project.png';
 import Issue from '../components/Issue';
+import EditProject from '../components/EditProject';
 
-import { fetchProject } from '../actions/projects';
+import { fetchProject, editProject } from '../actions/projects';
 import { createIssue } from '../actions/issues';
 
 class ProjectExtended extends Component {
@@ -27,6 +25,7 @@ class ProjectExtended extends Component {
 			project: '',
 			createdIssue: null,
 			error: null,
+			editModalOpened: false,
 		};
 	}
 
@@ -44,10 +43,10 @@ class ProjectExtended extends Component {
 			this.setState({ error: null });
 		}
 
-		if ( (!this.props.createdIssue && newProps.createdIssue)
-			|| (newProps.createdIssue && newProps.createdIssue.name 
+		if ((!this.props.createdIssue && newProps.createdIssue)
+			|| (newProps.createdIssue && newProps.createdIssue.name
 				&& this.props.createdIssue.name !== newProps.createdIssue.name)) {
-			this.setState({ 
+			this.setState({
 				createdIssue: newProps.createdIssue,
 				description: '',
 				name: '',
@@ -85,10 +84,14 @@ class ProjectExtended extends Component {
 		this.setState({ modalOpened: true });
 	}
 
+	closeModal = () => {
+		this.setState({ modalOpened: false });
+	}
+
 	createIssue = (e) => {
 		e.preventDefault();
 		const {
-			name, description, project, status 
+			name, description, project, status,
 		} = this.state;
 		if (name && description) {
 			this.props.createIssue(name, description, project, status, this.props.token);
@@ -99,31 +102,64 @@ class ProjectExtended extends Component {
 		this.setState({ [name]: value });
 	}
 
-	closeModal = () => {
-		this.setState({ modalOpened: false });
-	}
+	openEditModal = () => (this.setState({ editModalOpened: true }));
+	closeEditModal = () => (this.setState({ editModalOpened: false }));
+
 
 	render() {
 		return (
 			<div className="project-extended">
-				<a onClick={this.openModal}>CREATE NEW ISSUE</a>
 				<Loader active={!this.props.selectedProject} content="Fetching project" />
 				{this.props.selectedProject && (
 					<React.Fragment>
+
 						<Header as="h2">
 							<React.Fragment>
 								<Image src={ProjectPicture} />
-								{this.props.selectedProject.name}
+								<div>{this.props.selectedProject.name}</div>
+								<div>{this.props.selectedProject.description}</div>
+								<div>{this.props.selectedProject.status}</div>
 							</React.Fragment>
 						</Header>
+
+						<Button
+							as="a"
+							content="Edit project"
+							labelPosition="left"
+							icon="edit"
+							onClick={this.openEditModal}
+						/>
+
+						<Button
+							as="a"
+							content="Create new issue"
+							labelPosition="left"
+							icon="plus"
+							onClick={this.openModal}
+						/>
+
+						{this.state.editModalOpened && (
+							<EditProject
+								project={this.props.selectedProject}
+								closeEditModal={this.closeEditModal}
+								editProject={this.props.editProject}
+								token={this.props.token}
+								error={this.props.error}
+								createdProject={this.props.createdProject}
+							/>
+						)}
+
 						{this.props.selectedProject.issues.length > 0 && (
 							<div className="issues">
 								{this.sortIssues(this.props.selectedProject.issues)}
 							</div>
 						)}
+
 					</React.Fragment>
 				)}
+
 				<Link href="/projects" to="/projects">Go back to Projects Page</Link>
+
 				<Modal open={this.state.modalOpened}>
 					<Modal.Header>
 							Create new issue
@@ -155,11 +191,11 @@ class ProjectExtended extends Component {
 								<Form.Button
 									className="inline-block"
 									content="Cancel"
-									onClick={this.closeModal} 
+									onClick={this.closeModal}
 								/>
 								<Form.Button
-									className="inline-block" 
-									content="Submit" 
+									className="inline-block"
+									content="Submit"
 								/>
 							</Form.Group>
 						</Form>
@@ -193,6 +229,7 @@ ProjectExtended.propTypes = {
 		name: PropTypes.string,
 		issues: PropTypes.array,
 	}),
+	// TODO createdproject
 };
 
 const mapStateToProps = state => ({
@@ -202,12 +239,16 @@ const mapStateToProps = state => ({
 		: null,
 	error: state.issues.errors,
 	createdIssue: state.issues.createdIssue,
+	createdProject: state.projects.createdProject,
 }
 );
 
 const mapDispatchToProps = dispatch => ({
 	fetchProject: (id, token) => dispatch(fetchProject(id, token)),
-	createIssue: (name, description, project, status, token) => dispatch(createIssue(name, description, project, status, token)),
+	createIssue: (name, description, project, status, token) => dispatch(
+		createIssue(name, description, project, status, token)
+	),
+	editProject: (id, name, description, token) => dispatch(editProject(id, name, description, token)),
 });
 
 export default withRouter(connect(mapStateToProps, mapDispatchToProps)(ProjectExtended));
