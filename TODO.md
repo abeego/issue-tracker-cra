@@ -7,12 +7,10 @@ fetch user info and save it in the localstorage?
 display user name ? 
 
 Projects:
-- edit existing 
 - delete
 
 
 Issue Card: 
-- edit existing
 - delete
 - drag and drop to change status
 

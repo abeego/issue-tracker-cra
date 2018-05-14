@@ -12,10 +12,12 @@ const Home = ({ isAuthenticated }) => (
 		</h2>
 		{isAuthenticated
 			? <Redirect to="/projects" />
-			: (<div>
+			: (
+				<div>
 					<Link href="/login" to="/login">Log in</Link>
 					<Link href="/register" to="/register">Sign in</Link>
-				</div>)
+				</div>
+			)
 		}
 	</div>
 );

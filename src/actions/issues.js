@@ -26,7 +26,9 @@ export const createIssue = (name, description, project, status) => ({
 	[RSAA]: {
 		endpoint: '/api/issues/',
 		method: 'POST',
-		body: JSON.stringify({ name, description, project, status }),
+		body: JSON.stringify({
+			name, description, project, status,
+		}),
 		headers: withAuth({ 'Content-Type': 'application/json' }),
 		types: [
 			ISSUE_CREATE, ISSUE_CREATE_SUCCESS, ISSUE_CREATE_FAILURE,
@@ -34,20 +36,19 @@ export const createIssue = (name, description, project, status) => ({
 	},
 });
 
-export const editIssue = (name, description, status, project, id) => {
-	console.log(name, description, status, id);
-	return {
+export const editIssue = (name, description, status, project, id) => ({
 	[RSAA]: {
 		endpoint: `/api/issues/${id}/`,
 		method: 'PUT',
-		body: JSON.stringify({ name, description, status, project }),
+		body: JSON.stringify({
+			name, description, status, project,
+		}),
 		headers: withAuth({ 'Content-Type': 'application/json' }),
 		types: [
 			ISSUE_EDIT, ISSUE_EDIT_SUCCESS, ISSUE_EDIT_FAILURE,
 		],
 	},
-}
-};
+});
 
 
 export const addComment = (body, issue) => ({

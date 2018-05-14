@@ -11,6 +11,8 @@ export function createApiMiddleware() {
 		const rsaaMiddleware = apiMiddleware({ dispatch, getState });
 
 		return next => (action) => {
+			if(action[RSAA] && action[RSAA].endpoint && action[RSAA].endpoint === "/api/registration/") rsaaMiddleware(next)(action);
+
 			const nextCheckPostponed = (nextAction) => {
 				// Run postponed actions after token refresh
 				if (nextAction.type === TOKEN_RECEIVED) {

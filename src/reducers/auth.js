@@ -43,8 +43,6 @@ export default (state = initialState, action) => {
 		};
 
 	case 'LOGOUT':
-		console.log(action);
-		
 		localStorage.clear();
 		return {
 			auth: {},
@@ -84,16 +82,16 @@ export function accessToken(state) {
 	if (state.auth.access) {
 		return state.auth.access.token;
 	} else {
-    return state.access;
-  }
+		return state.access;
+	}
 }
 
 export function refreshToken(state) {
-  if (state.auth && state.auth.refresh) {
-    return state.auth.refresh;
-  } else {
-    return localStorage.getItem('refresh');
-  }
+	if (state.auth && state.auth.refresh) {
+		return state.auth.refresh;
+	} else {
+		return localStorage.getItem('refresh');
+	}
 }
 
 export function isAccessTokenExpired(state) {

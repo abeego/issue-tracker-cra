@@ -1,30 +1,21 @@
-import React, { Component } from 'react';
+import React from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 
 import { logout } from '../actions/auth';
 import { isAuthenticated } from '../reducers';
 
-class Header extends Component {
-	componentWillMount() {
-		// TODO fetch user data and display them ???
-	}
-
-	render() {
-		const { isAuthenticated, logout } = this.props;
-		return (
-			<div>
-				{isAuthenticated && (
-					<div className="page-header" >
-						<a className="logout-button" onClick={() => logout()}>
-								Log out
-						</a>
-					</div>
-				)}
+const Header = ({ isAuthenticated, logout }) => (
+	<div>
+		{isAuthenticated && (
+			<div className="page-header" >
+				<a className="logout-button" onClick={() => logout()}>
+					Log out
+				</a>
 			</div>
-		)
-	}
-};
+		)}
+	</div>
+);
 
 Header.propTypes = {
 	logout: PropTypes.func,

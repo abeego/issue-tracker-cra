@@ -5,7 +5,7 @@ import { Modal, Form, Icon } from 'semantic-ui-react';
 export default class EditProject extends Component {
 	constructor(props) {
 		super(props);
-		const { project: {name: projectName, description } } = this.props;
+		const { project: { name: projectName, description } } = this.props;
 		this.state = {
 			projectName,
 			description,
@@ -17,9 +17,8 @@ export default class EditProject extends Component {
 	componentWillReceiveProps = (newProps) => {
 		if (newProps.createdProject !== this.props.createdProject) {
 			this.setState({
-				successMsg : 'Project updated.',
+				successMsg: 'Project updated.',
 				errorMsg: '',
-				project: newProps.createdProject,
 				projectName: newProps.createdProject.name,
 				description: newProps.createdProject.description,
 			});
@@ -55,7 +54,7 @@ export default class EditProject extends Component {
 				<Modal.Header>Edit project {this.state.projectName}
 					<Icon
 						name="remove"
-						style={{ float: 'right'}}
+						style={{ float: 'right' }}
 						onClick={this.closeModal}
 					/>
 				</Modal.Header>
@@ -107,5 +106,18 @@ export default class EditProject extends Component {
 }
 
 EditProject.propTypes = {
-	// TODO
+	editProject: PropTypes.func,
+	closeEditModal: PropTypes.func,
+	project: PropTypes.shape({
+		id: PropTypes.number,
+		issues: PropTypes.array,
+		name: PropTypes.string,
+	}),
+	createdProject: PropTypes.shape({
+		created_at: PropTypes.string,
+		description: PropTypes.string,
+		id: PropTypes.number,
+		name: PropTypes.string,
+	}),
+	error: PropTypes.string,
 };

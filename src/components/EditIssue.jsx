@@ -3,9 +3,6 @@ import PropTypes from 'prop-types';
 import { Modal, Form, Icon } from 'semantic-ui-react';
 
 
-// TODO refresh on success
-// clear form 
-// error/success messages  
 export default class EditIssue extends Component {
 	constructor(props) {
 		super(props);
@@ -20,10 +17,9 @@ export default class EditIssue extends Component {
 	}
 
 	componentWillReceiveProps = (newProps) => {
-		console.log(newProps);
 		if (newProps.createdIssue !== this.props.createdIssue) {
 			this.setState({
-				successMsg : 'Issue updated.',
+				successMsg: 'Issue updated.',
 				errorMsg: '',
 				issueName: newProps.createdIssue.name,
 				description: newProps.createdIssue.description,
@@ -35,9 +31,8 @@ export default class EditIssue extends Component {
 			this.setState({
 				errorMsg: 'Something went wrong. Try again.',
 				successMsg: '',
-			})
+			});
 		}
-		
 	}
 
 	editIssue = () => {
@@ -58,7 +53,7 @@ export default class EditIssue extends Component {
 		this.setState({
 			errorMsg: '',
 			successMsg: '',
-		})
+		});
 		this.props.closeEditModal();
 	}
 
@@ -87,7 +82,7 @@ export default class EditIssue extends Component {
 				<Modal.Header>Edit Issue {this.state.issueName}
 					<Icon
 						name="remove"
-						style={{ float: 'right'}}
+						style={{ float: 'right' }}
 						onClick={this.closeModal}
 					/>
 				</Modal.Header>
@@ -117,7 +112,7 @@ export default class EditIssue extends Component {
 								options={statusOptions}
 								name="issueStatus"
 								onChange={this.handleChange}
-							/> 
+							/>
 							<Form.Button
 								className="inline-block"
 								content="Cancel"
@@ -147,5 +142,15 @@ export default class EditIssue extends Component {
 }
 
 EditIssue.propTypes = {
-	// TODO
+	issue: PropTypes.shape({
+		project: PropTypes.number,
+		id: PropTypes.number,
+	}),
+	editIssue: PropTypes.func,
+	closeEditModal: PropTypes.func,
+	createdIssue: PropTypes.shape({
+		name: PropTypes.string,
+		description: PropTypes.string,
+		status: PropTypes.string,
+	}),
 };

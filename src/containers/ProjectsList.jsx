@@ -33,7 +33,7 @@ class ProjectsList extends Component {
 			this.setState({ error: null });
 		}
 
-		if ( (!this.props.createdProject && newProps.createdProject)
+		if ((!this.props.createdProject && newProps.createdProject)
 			|| (newProps.createdProject && newProps.createdProject.name
 				&& this.props.createdProject.name !== newProps.createdProject.name)) {
 			this.setState({
@@ -85,12 +85,12 @@ class ProjectsList extends Component {
 						<Modal.Header>Create new project
 							<Icon
 								name="remove"
-								style={{ float: 'right'}}
+								style={{ float: 'right' }}
 								onClick={this.closeModal}
 							/>
 						</Modal.Header>
 						<Modal.Content>
-							<Form  onClick={this.createProject}>
+							<Form onClick={this.createProject}>
 								<Form.Group >
 									<Form.Input
 										required
@@ -140,6 +140,11 @@ class ProjectsList extends Component {
 ProjectsList.propTypes = {
 	getProjectsList: PropTypes.func,
 	projectsList: PropTypes.arrayOf(PropTypes.object),
+	createdProject: PropTypes.shape({
+		name: PropTypes.string,
+		description: PropTypes.string,
+	}),
+	createProject: PropTypes.func,
 };
 
 const mapStateToProps = state => ({

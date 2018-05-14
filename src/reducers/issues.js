@@ -33,7 +33,7 @@ export default (state = initialState, action) => {
 			...state,
 			errors: action.payload.response.name,
 		};
-	case issues.ADD_COMMENT_SUCCESS: 
+	case issues.ADD_COMMENT_SUCCESS:
 		return {
 			...state,
 			errors: undefined,

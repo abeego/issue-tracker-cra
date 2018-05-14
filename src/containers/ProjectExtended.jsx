@@ -224,16 +224,32 @@ class ProjectExtended extends Component {
 
 ProjectExtended.propTypes = {
 	fetchProject: PropTypes.func,
+	editProject: PropTypes.func,
+	createIssue: PropTypes.func,
 	match: PropTypes.shape({
 		params: PropTypes.shape({
 			id: PropTypes.string,
 		}),
 	}),
 	selectedProject: PropTypes.shape({
+		description: PropTypes.string,
 		name: PropTypes.string,
 		issues: PropTypes.array,
 	}),
-	// TODO createdproject
+	createdProject: PropTypes.shape({
+		name: PropTypes.string,
+		description: PropTypes.string,
+	}),
+	createdIssue: PropTypes.shape({
+		name: PropTypes.string,
+		comments: PropTypes.array,
+		created_at: PropTypes.string,
+		description: PropTypes.string,
+		id: PropTypes.number,
+		project: PropTypes.number,
+		status: PropTypes.string,
+	}),
+	error: PropTypes.array,
 };
 
 const mapStateToProps = state => ({
@@ -241,8 +257,7 @@ const mapStateToProps = state => ({
 	error: state.issues.errors,
 	createdIssue: state.issues.createdIssue,
 	createdProject: state.projects.createdProject,
-}
-);
+});
 
 const mapDispatchToProps = dispatch => ({
 	fetchProject: id => dispatch(fetchProject(id)),

@@ -76,7 +76,7 @@ class IssueExtended extends Component {
 		return (
 			<Segment className="issue-extended">
 				{this.state.editModalOpened && (
-					<EditIssue 
+					<EditIssue
 						editIssue={this.props.editIssue}
 						issue={this.props.selectedIssue}
 						closeEditModal={this.closeEditModal}
@@ -183,6 +183,12 @@ IssueExtended.propTypes = {
 		name: PropTypes.string,
 		issues: PropTypes.array,
 	}),
+	createdIssue: PropTypes.shape({
+		name: PropTypes.string,
+		description: PropTypes.string,
+	}),
+	editIssue: PropTypes.func,
+	error: PropTypes.array,
 };
 
 const mapStateToProps = (state, ownProps) => ({
