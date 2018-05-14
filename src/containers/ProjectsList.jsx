@@ -8,13 +8,13 @@ import { getProjectsList, createProject } from '../actions/projects';
 import Project from '../components/Project';
 
 // TODO modal in new component
-// TODO each field in separate line 
+// TODO each field in separate line
 
 class ProjectsList extends Component {
 	constructor(props) {
 		super(props);
-		this.state = { 
-			modalOpened: false, 
+		this.state = {
+			modalOpened: false,
 			name: '',
 			description: '',
 			error: null,
@@ -23,11 +23,10 @@ class ProjectsList extends Component {
 	}
 
 	componentDidMount() {
-		this.props.getProjectsList(this.props.token);
+		this.props.getProjectsList();
 	}
 
 	componentWillReceiveProps = (newProps) => {
-		console.log('newProps in project ', newProps, newProps.errors);
 		if (newProps.error && newProps.error.length && newProps.error !== this.state.error) {
 			this.setState({ error: newProps.error[0] });
 		} else if (this.state.error && !newProps.error) {
@@ -35,9 +34,9 @@ class ProjectsList extends Component {
 		}
 
 		if ( (!this.props.createdProject && newProps.createdProject)
-			|| (newProps.createdProject && newProps.createdProject.name 
+			|| (newProps.createdProject && newProps.createdProject.name
 				&& this.props.createdProject.name !== newProps.createdProject.name)) {
-			this.setState({ 
+			this.setState({
 				createdProject: newProps.createdProject,
 				description: '',
 				name: '',
@@ -54,7 +53,7 @@ class ProjectsList extends Component {
 		e.preventDefault();
 		const { name, description } = this.state;
 		if (name && description) {
-			this.props.createProject(name, description, this.props.token);
+			this.props.createProject(name, description);
 		}
 	}
 
@@ -85,7 +84,7 @@ class ProjectsList extends Component {
 					<Modal open={this.state.modalOpened} >
 						<Modal.Header>Create new project
 							<Icon
-								name="remove" 
+								name="remove"
 								style={{ float: 'right'}}
 								onClick={this.closeModal}
 							/>
@@ -93,30 +92,30 @@ class ProjectsList extends Component {
 						<Modal.Content>
 							<Form  onClick={this.createProject}>
 								<Form.Group >
-									<Form.Input 
-										required 
-										label="Project name" 
-										name="name" 
+									<Form.Input
+										required
+										label="Project name"
+										name="name"
 										value={this.state.name}
-										placeholder="Project name" 
+										placeholder="Project name"
 										onChange={this.handleChange}
 									/>
-									<Form.TextArea 
-										required 
-										label="Project description" 
-										name="description" 
+									<Form.TextArea
+										required
+										label="Project description"
+										name="description"
 										value={this.state.description}
-										placeholder="Project description" 
+										placeholder="Project description"
 										onChange={this.handleChange}
 									/>
 									<Form.Button
 										className="inline-block"
-										content='Cancel'
+										content="Cancel"
 										onClick={this.closeModal}
 									/>
 									<Form.Button
 										className="inline-block"
-										content='Submit'
+										content="Submit"
 									/>
 								</Form.Group>
 							</Form>
@@ -140,21 +139,17 @@ class ProjectsList extends Component {
 
 ProjectsList.propTypes = {
 	getProjectsList: PropTypes.func,
-	token: PropTypes.string,
 	projectsList: PropTypes.arrayOf(PropTypes.object),
 };
 
 const mapStateToProps = state => ({
-	token: (state.auth && state.auth.access && state.auth.access.token)
-		? state.auth.access.token
-		: null,
 	projectsList: state.projects.projectsList,
 	error: state.projects.errors,
 	createdProject: state.projects.createdProject,
 });
 
 const mapDispatchToProps = dispatch => ({
-	getProjectsList: token => dispatch(getProjectsList(token)),
-	createProject: (name, description, token) => dispatch(createProject(name, description, token)),
+	getProjectsList: () => dispatch(getProjectsList()),
+	createProject: (name, description) => dispatch(createProject(name, description)),
 });
 export default connect(mapStateToProps, mapDispatchToProps)(ProjectsList);

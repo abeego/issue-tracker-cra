@@ -2,26 +2,32 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { Modal, Form, Icon } from 'semantic-ui-react';
 
-export default class EditProject extends Component {
+
+// TODO refresh on success
+// clear form 
+// error/success messages  
+export default class EditIssue extends Component {
 	constructor(props) {
 		super(props);
-		const { project: {name: projectName, description } } = this.props;
+		const { issue: { name: issueName, description, status: issueStatus } } = this.props;
 		this.state = {
-			projectName,
+			issueName,
 			description,
 			errorMsg: '',
 			successMsg: '',
+			issueStatus,
 		};
 	}
 
 	componentWillReceiveProps = (newProps) => {
-		if (newProps.createdProject !== this.props.createdProject) {
+		console.log(newProps);
+		if (newProps.createdIssue !== this.props.createdIssue) {
 			this.setState({
-				successMsg : 'Project updated.',
+				successMsg : 'Issue updated.',
 				errorMsg: '',
-				project: newProps.createdProject,
-				projectName: newProps.createdProject.name,
-				description: newProps.createdProject.description,
+				issueName: newProps.createdIssue.name,
+				description: newProps.createdIssue.description,
+				issueStatus: newProps.createdIssue.status,
 			});
 		}
 
@@ -29,15 +35,18 @@ export default class EditProject extends Component {
 			this.setState({
 				errorMsg: 'Something went wrong. Try again.',
 				successMsg: '',
-			});
+			})
 		}
+		
 	}
 
-	editProject = () => {
-		this.props.editProject(
-			this.props.project.id,
-			this.state.projectName,
+	editIssue = () => {
+		this.props.editIssue(
+			this.state.issueName,
 			this.state.description,
+			this.state.issueStatus,
+			this.props.issue.project,
+			this.props.issue.id,
 		);
 	}
 
@@ -46,13 +55,36 @@ export default class EditProject extends Component {
 	}
 
 	closeModal = () => {
+		this.setState({
+			errorMsg: '',
+			successMsg: '',
+		})
 		this.props.closeEditModal();
 	}
 
 	render() {
+		const statusOptions = [
+			{
+				text: 'Planed',
+				value: 'Planed',
+			},
+			{
+				text: 'In Progress',
+				value: 'In Progress',
+			},
+			{
+				text: 'Verified',
+				value: 'Verified',
+			},
+			{
+				text: 'Done',
+				value: 'Done',
+			},
+		];
+
 		return (
 			<Modal open>
-				<Modal.Header>Edit project {this.state.projectName}
+				<Modal.Header>Edit Issue {this.state.issueName}
 					<Icon
 						name="remove"
 						style={{ float: 'right'}}
@@ -64,20 +96,28 @@ export default class EditProject extends Component {
 						<Form.Group >
 							<Form.Input
 								required
-								label="Project name"
-								name="projectName"
-								value={this.state.projectName}
-								placeholder="Project name"
+								label="Issue name"
+								name="issueName"
+								value={this.state.issueName}
+								placeholder="Issue name"
 								onChange={this.handleChange}
 							/>
 							<Form.TextArea
 								required
-								label="Project description"
+								label="Issue description"
 								name="description"
 								value={this.state.description}
-								placeholder="Project description"
+								placeholder="Issue description"
 								onChange={this.handleChange}
 							/>
+							<Form.Dropdown
+								placeholder="Change status"
+								fluid
+								selection
+								options={statusOptions}
+								name="issueStatus"
+								onChange={this.handleChange}
+							/> 
 							<Form.Button
 								className="inline-block"
 								content="Cancel"
@@ -86,7 +126,7 @@ export default class EditProject extends Component {
 							<Form.Button
 								className="inline-block"
 								content="Submit"
-								onClick={this.editProject}
+								onClick={this.editIssue}
 							/>
 						</Form.Group>
 					</Form>
@@ -106,6 +146,6 @@ export default class EditProject extends Component {
 	}
 }
 
-EditProject.propTypes = {
+EditIssue.propTypes = {
 	// TODO
 };

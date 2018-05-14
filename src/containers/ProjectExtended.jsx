@@ -31,7 +31,7 @@ class ProjectExtended extends Component {
 
 	componentWillMount() {
 		const { match: { params: { id } } } = this.props;
-		if (id) this.props.fetchProject(id, this.props.token);
+		if (id) this.props.fetchProject(id);
 		this.setState({ project: id });
 	}
 
@@ -51,7 +51,7 @@ class ProjectExtended extends Component {
 				description: '',
 				name: '',
 			});
-			this.props.fetchProject(this.props.match.params.id, this.props.token);
+			this.props.fetchProject(this.props.match.params.id);
 		}
 	}
 
@@ -94,7 +94,7 @@ class ProjectExtended extends Component {
 			name, description, project, status,
 		} = this.state;
 		if (name && description) {
-			this.props.createIssue(name, description, project, status, this.props.token);
+			this.props.createIssue(name, description, project, status);
 		}
 	}
 
@@ -112,13 +112,19 @@ class ProjectExtended extends Component {
 				<Loader active={!this.props.selectedProject} content="Fetching project" />
 				{this.props.selectedProject && (
 					<React.Fragment>
-
 						<Header as="h2">
 							<React.Fragment>
 								<Image src={ProjectPicture} />
-								<div>{this.props.selectedProject.name}</div>
-								<div>{this.props.selectedProject.description}</div>
-								<div>{this.props.selectedProject.status}</div>
+								<div>
+									{this.props.createdProject
+										? this.props.createdProject.name
+										: this.props.selectedProject.name}
+								</div>
+								<div>
+									{this.props.createdProject
+										? this.props.createdProject.description
+										: this.props.selectedProject.description}
+								</div>
 							</React.Fragment>
 						</Header>
 
@@ -143,7 +149,6 @@ class ProjectExtended extends Component {
 								project={this.props.selectedProject}
 								closeEditModal={this.closeEditModal}
 								editProject={this.props.editProject}
-								token={this.props.token}
 								error={this.props.error}
 								createdProject={this.props.createdProject}
 							/>
@@ -219,7 +224,6 @@ class ProjectExtended extends Component {
 
 ProjectExtended.propTypes = {
 	fetchProject: PropTypes.func,
-	token: PropTypes.string,
 	match: PropTypes.shape({
 		params: PropTypes.shape({
 			id: PropTypes.string,
@@ -234,9 +238,6 @@ ProjectExtended.propTypes = {
 
 const mapStateToProps = state => ({
 	selectedProject: state.projects.selectedProject,
-	token: (state.auth && state.auth.access && state.auth.access.token)
-		? state.auth.access.token
-		: null,
 	error: state.issues.errors,
 	createdIssue: state.issues.createdIssue,
 	createdProject: state.projects.createdProject,
@@ -244,11 +245,11 @@ const mapStateToProps = state => ({
 );
 
 const mapDispatchToProps = dispatch => ({
-	fetchProject: (id, token) => dispatch(fetchProject(id, token)),
-	createIssue: (name, description, project, status, token) => dispatch(
-		createIssue(name, description, project, status, token)
+	fetchProject: id => dispatch(fetchProject(id)),
+	createIssue: (name, description, project, status) => dispatch(
+		createIssue(name, description, project, status)
 	),
-	editProject: (id, name, description, token) => dispatch(editProject(id, name, description, token)),
+	editProject: (id, name, description) => dispatch(editProject(id, name, description)),
 });
 
 export default withRouter(connect(mapStateToProps, mapDispatchToProps)(ProjectExtended));

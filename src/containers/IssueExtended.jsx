@@ -3,8 +3,10 @@ import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { Item, Comment, Button, Segment, Form, Divider } from 'semantic-ui-react';
 
-import { selectIssue, addComment } from '../actions/issues';
+import { selectIssue, addComment, editIssue } from '../actions/issues';
 import { fetchProject } from '../actions/projects';
+
+import EditIssue from '../components/EditIssue';
 
 import AvatarImage from '../images/avatar.png';
 // TODO add user
@@ -15,6 +17,8 @@ class IssueExtended extends Component {
 		this.state = {
 			comments: this.props.selectedIssue.comments,
 			newComment: '',
+			editModalOpened: false,
+			selectedIssue: this.props.selectedIssue,
 		};
 	}
 	componentWillMount() {
@@ -24,13 +28,17 @@ class IssueExtended extends Component {
 	componentWillReceiveProps = (newProps) => {
 		if (this.props.addedComment !== newProps.addedComment) {
 			this.setState({ newComment: '' });
-			this.props.fetchProject(this.props.selectedIssue.project, this.props.token);
+			this.props.fetchProject(this.props.selectedIssue.project);
 		}
 
 		if (newProps.selectedProject && newProps.selectedProject.issues) {
 			const refreshedIssue = newProps.selectedProject.issues
 				.filter(issue => issue.id === this.props.selectedIssue.id)[0];
 			this.setState({ comments: refreshedIssue.comments });
+		}
+
+		if (newProps.createdIssue !== this.props.createdIssue) {
+			this.setState({ selectedIssue: newProps.createdIssue });
 		}
 	}
 
@@ -42,8 +50,15 @@ class IssueExtended extends Component {
 		this.props.addComment(
 			this.state.newComment,
 			this.props.selectedIssue.id,
-			this.props.token,
 		);
+	}
+
+	openEditModal = () => {
+		this.setState({ editModalOpened: true });
+	}
+
+	closeEditModal = () => {
+		this.setState({ editModalOpened: false });
 	}
 
 	render() {
@@ -54,15 +69,23 @@ class IssueExtended extends Component {
 				description,
 				created_at: createdAt,
 			},
-		} = this.props;
+		} = this.state;
 
 		const { comments } = this.state;
 
 		return (
 			<Segment className="issue-extended">
+				{this.state.editModalOpened && (
+					<EditIssue 
+						editIssue={this.props.editIssue}
+						issue={this.props.selectedIssue}
+						closeEditModal={this.closeEditModal}
+						createdIssue={this.props.createdIssue}
+						error={this.props.error}
+					/>
+				)}
 				<Item.Group>
 					<Item>
-						{/* <Item.Image size="small" src={ProjectPicture} /> */}
 						<Item.Content>
 							<Item.Header>{name}</Item.Header>
 							<Item.Meta>Description:</Item.Meta>
@@ -73,12 +96,12 @@ class IssueExtended extends Component {
 							<Item.Description>{status}</Item.Description>
 							<Item.Extra>
 								<Button
-									disabled
 									as="a"
 									floated="right"
 									content="Edit"
 									labelPosition="left"
 									icon="edit"
+									onClick={this.openEditModal}
 								/>
 							</Item.Extra>
 							{comments && comments.length > 0 && (
@@ -88,14 +111,10 @@ class IssueExtended extends Component {
 											<Comment key={comment.created_at}>
 												<Comment.Avatar size="tiny" src={AvatarImage} />
 												<Comment.Content>
-													{/* <Comment.Author as='a'>Matt</Comment.Author> */}
 													<Comment.Metadata>
 														<div>{comment.created_at}</div>
 													</Comment.Metadata>
 													<Comment.Text>{comment.body}</Comment.Text>
-													{/* <Comment.Actions>
-															<Comment.Action disabled>Reply</Comment.Action>
-														</Comment.Actions> */}
 												</Comment.Content>
 												<Divider />
 											</Comment>
@@ -153,7 +172,6 @@ IssueExtended.propTypes = {
 	fetchProject: PropTypes.func,
 	selectIssue: PropTypes.func,
 	addComment: PropTypes.func,
-	token: PropTypes.string,
 	addedComment: PropTypes.shape({
 		body: PropTypes.string,
 		created_at: PropTypes.string,
@@ -167,22 +185,20 @@ IssueExtended.propTypes = {
 	}),
 };
 
-const mapStateToProps = (state, ownProps) => 
-	// console.log('state', state);
-	 ({
-		selectedIssue: ownProps.location.state,
-		token: (state.auth && state.auth.access && state.auth.access.token)
-			? state.auth.access.token
-			: null,
-		addedComment: state.issues.addedComment,
-		selectedProject: state.projects.selectedProject,
-	})
-;
-
+const mapStateToProps = (state, ownProps) => ({
+	selectedIssue: ownProps.location.state,
+	addedComment: state.issues.addedComment,
+	selectedProject: state.projects.selectedProject,
+	createdIssue: state.issues.createdIssue,
+	error: state.issues.errors,
+});
 const mapDispatchToProps = dispatch => ({
 	selectIssue: issue => dispatch(selectIssue(issue)),
-	addComment: (body, issue, token) => dispatch(addComment(body, issue, token)),
-	fetchProject: (id, token) => dispatch(fetchProject(id, token)),
+	addComment: (body, issue) => dispatch(addComment(body, issue)),
+	fetchProject: id => dispatch(fetchProject(id)),
+	editIssue: (name, description, status, project, id) => dispatch(
+		editIssue(name, description, status, project, id)
+	),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(IssueExtended);

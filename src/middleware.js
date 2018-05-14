@@ -20,8 +20,6 @@ export function createApiMiddleware() {
 					});
 					postponedRSAAs = [];
 				} else {
-					console.log(nextAction);
-					
 					next(nextAction);
 				}
 			};
@@ -29,8 +27,6 @@ export function createApiMiddleware() {
 			if (isRSAA(action)) {
 				const state = getState();
 				const token = refreshToken(state);
-				console.log(token, isAccessTokenExpired(state));
-				console.log(isRefreshTokenExpired(state));
 				
 				if (isRefreshTokenExpired(state)) {
 					const body = JSON.parse(action[RSAA].body);
